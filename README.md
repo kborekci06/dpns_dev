@@ -61,7 +61,7 @@ This will support distributed sensing and real-time multi-channel data fusion.
 
 #### 3. EMG Signal Acquisition
 
-Extend the sensing capabilities of peripheral devices to include **surface Electromyography (EMG)**. EMG signals from respiratory-related muscles (e.g., diaphragm, intercostals) can provide additional neuromuscular information to complement IMU data and improve predictive accuracy.
+Extend the sensing capabilities of peripheral devices to include surface Electromyography (EMG). EMG signals from respiratory-related muscles (e.g., diaphragm, intercostals) can provide additional neuromuscular information to complement IMU data and improve predictive accuracy.
 
 This will enable the creation of a richer, multimodal dataset for model training.
 
@@ -79,21 +79,21 @@ The model will be validated using ground truth CO₂ data, then optimized for re
 
 Once a reliable model has been trained and validated:
 
-- A new **second-generation device** will be developed that **omits the CO₂ sensor**.
-- The trained predictive model will be **embedded directly into the firmware** or run on a more powerful embedded processor.
-- This device will continuously collect IMU (and optionally EMG) data and **produce a real-time control signal** representing estimated respiratory demand.
+- A new second-generation device will be developed that omits the CO₂ sensor.
+- The trained predictive model will be embedded directly into the firmware or run on a more powerful embedded processor.
+- This device will continuously collect IMU (and optionally EMG) data and produce a real-time control signal representing estimated respiratory demand.
 
 This marks the transition from data collection to real-time physiological state estimation.
 
 #### 6. Closed-Loop Phrenic Nerve Control System
 
-The final stage of the project involves integrating the predictive control signal into a **next-generation phrenic nerve implant**. This system will:
+The final stage of the project involves integrating the predictive control signal into a next-generation phrenic nerve implant. This system will:
 
 - Receive real-time control data from the inference device
 - Dynamically adjust stimulation parameters (e.g., frequency, pulse width, amplitude)
 - Operate autonomously without manual tuning or caregiver input
 
-This represents a novel **closed-loop neuromodulation system** for patients with impaired respiratory function.
+This represents a novel closed-loop neuromodulation system for patients with impaired respiratory function.
 
 ---
 
