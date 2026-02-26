@@ -37,16 +37,23 @@ void icm20948_init() {
     printf("ICM-20948 detected! WHO_AM_I = 0x%X\n", who_am_i);
 
     icm20948_write_register(PWR_MGMT_1, 0x80);
-    sleep_ms(50);  
+    sleep_ms(50);
 
     icm20948_write_register(PWR_MGMT_1, 0x01);
     icm20948_write_register(PWR_MGMT_2, 0x00);
 
+    // Bank 0 settings
     icm20948_set_bank(0);
-
     icm20948_write_register(LP_CONFIG, 0x00);
-    icm20948_write_register(ACCEL_CONFIG, 0x00);  // ±2g
-    icm20948_write_register(GYRO_CONFIG_1, 0x00); // ±250°/s
+
+    // Bank 2 settings (ACCEL_CONFIG, GYRO_CONFIG_1 live here)
+    icm20948_set_bank(2);
+
+    icm20948_write_register(ACCEL_CONFIG, 0x04);   // ±8g  (ACCEL_FS_SEL=10)
+    icm20948_write_register(GYRO_CONFIG_1, 0x04);  // ±1000 dps (GYRO_FS_SEL=01)
+    // or use 0x02 for ±500 dps, 0x06 for ±2000 dps
+
+    icm20948_set_bank(0); // return to bank 0 for normal reads
 
     printf("ICM-20948 Initialization Complete!\n");
 }
@@ -70,13 +77,13 @@ void icm20948_read_sensor_data(float *accel_x_g, float *accel_y_g, float *accel_
     int16_t gyro_z = (int16_t)((data[10] << 8) | data[11]);
 
     // Convert raw values to meaningful physical values
-    *accel_x_g = accel_x / 16384.0f;
-    *accel_y_g = accel_y / 16384.0f;
-    *accel_z_g = accel_z / 16384.0f;
+    *accel_x_g = accel_x / ACCEL_LSB_PER_G;
+    *accel_y_g = accel_y / ACCEL_LSB_PER_G;
+    *accel_z_g = accel_z / ACCEL_LSB_PER_G;
 
-    *gyro_x_dps = gyro_x / 131.0f;
-    *gyro_y_dps = gyro_y / 131.0f;
-    *gyro_z_dps = gyro_z / 131.0f;
+    *gyro_x_dps = gyro_x / GYRO_LSB_PER_DPS;
+    *gyro_y_dps = gyro_y / GYRO_LSB_PER_DPS;
+    *gyro_z_dps = gyro_z / GYRO_LSB_PER_DPS;
 }
 
 // // Task 8.1 Implement Hardware Interrupt - Testing - Interrupt Triggers but no writing

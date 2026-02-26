@@ -33,6 +33,9 @@
 #define ACCEL_YOUT_H    0x2F
 #define ACCEL_ZOUT_H    0x31
 
+#define ACCEL_LSB_PER_G 4096.0f // For ±8g range (from datasheet)
+#define GYRO_LSB_PER_DPS = 32.8f // For ±1000 dps range (from datasheet)
+
 // **Gyroscope Output Registers**
 #define GYRO_XOUT_H     0x33
 #define GYRO_YOUT_H     0x35
