@@ -77,13 +77,13 @@ void icm20948_read_sensor_data(float *accel_x_g, float *accel_y_g, float *accel_
     int16_t gyro_z = (int16_t)((data[10] << 8) | data[11]);
 
     // Convert raw values to meaningful physical values
-    *accel_x_g = accel_x / ACCEL_LSB_PER_G;
-    *accel_y_g = accel_y / ACCEL_LSB_PER_G;
-    *accel_z_g = accel_z / ACCEL_LSB_PER_G;
+    *accel_x_g = (float)accel_x / ACCEL_LSB_PER_G;
+    *accel_y_g = (float)accel_y / ACCEL_LSB_PER_G;
+    *accel_z_g = (float)accel_z / ACCEL_LSB_PER_G;
 
-    *gyro_x_dps = gyro_x / GYRO_LSB_PER_DPS;
-    *gyro_y_dps = gyro_y / GYRO_LSB_PER_DPS;
-    *gyro_z_dps = gyro_z / GYRO_LSB_PER_DPS;
+    *gyro_x_dps = (float)gyro_x / GYRO_LSB_PER_DPS;
+    *gyro_y_dps = (float)gyro_y / GYRO_LSB_PER_DPS;
+    *gyro_z_dps = (float)gyro_z / GYRO_LSB_PER_DPS;
 }
 
 // // Task 8.1 Implement Hardware Interrupt - Testing - Interrupt Triggers but no writing
