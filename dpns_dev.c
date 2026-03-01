@@ -59,7 +59,7 @@ volatile uint64_t next_imu_alarm_us = 0;
 // Function Prototypes
 void io_init(void);
 void core1_entry();
-bool imu_timer_callback(__unused uint alarm_num);
+void imu_timer_callback(__unused uint alarm_num);
 bool co2_timer_callback(struct repeating_timer *t);
 void stop_button_callback(uint gpio, uint32_t events);
 void close_sd_card(void);
@@ -235,14 +235,14 @@ void core1_entry() {
 }
 
 // Hardware Alarm 0 callback
-bool imu_timer_callback(__unused uint alarm_num) {
+void imu_timer_callback(__unused uint alarm_num) {
     imu_timestamp_us = next_imu_alarm_us;  // Use target time as reference
     next_imu_alarm_us += IMU_FREQ_US;      // Schedule next time *based on the last scheduled*
     hardware_alarm_set_target(0, next_imu_alarm_us);
 
     icm20948_read_sensor_data(&accel_x, &accel_y, &accel_z, &gyro_x, &gyro_y, &gyro_z);
     imu_data_ready = true;
-    return true;
+    // return true;
 }
 
 // CO2 Timer callback (still repeating timer)
