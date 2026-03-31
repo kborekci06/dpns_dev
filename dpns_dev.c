@@ -83,7 +83,7 @@ int main() {
     icm20948_init();
     co2_init();
 
-    // Set up CO₂ Timer (still software timer at 20Hz)
+    // Set up CO2 Timer (still software timer at 20Hz)
     struct repeating_timer co2_timer;
     add_repeating_timer_ms(-50, co2_timer_callback, NULL, &co2_timer);
 
@@ -237,7 +237,7 @@ void core1_entry() {
 // Hardware Alarm 0 callback
 void imu_timer_callback(__unused uint alarm_num) {
     imu_timestamp_us = next_imu_alarm_us;  // Use target time as reference
-    next_imu_alarm_us += IMU_FREQ_US;      // Schedule next time *based on the last scheduled*
+    next_imu_alarm_us += IMU_FREQ_US;      // Schedule next time based on the last scheduled
     hardware_alarm_set_target(0, next_imu_alarm_us);
 
     icm20948_read_sensor_data(&accel_x, &accel_y, &accel_z, &gyro_x, &gyro_y, &gyro_z);
